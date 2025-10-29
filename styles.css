@@ -1,0 +1,249 @@
+/* 简约程序员风格 - 全局 */
+:root{
+  --bg: #0f1724; /* 略亮的深色背景 */
+  --surface: transparent; /* 区块背景改为透明 */
+  --surface-alt: transparent; /* 头像背景改为透明 */
+  --muted: rgba(255,255,255,0.84); /* 次要文字改为柔和白色 */
+  --text: #ffffff; /* 主文字改为白色 */
+  --accent: #ffffff; /* 高亮同步为白色 */
+  --line: rgba(125, 223, 177, 0.2);
+  --mono: 'SFMono-Regular', 'Roboto Mono', 'Courier New', monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: var(--mono);
+  /* 减淡叠加，凸显背景图 */
+  background:linear-gradient(rgba(15, 23, 36, 0.18), rgba(15, 23, 36, 0.18)), url('background.png') center top / cover fixed no-repeat;
+  background-color:transparent;
+  color:var(--text);
+  font-size:20px;
+  text-shadow:0 2px 8px rgba(0,0,0,0.6);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
+}
+
+.container{
+  width:90%;
+  max-width:960px;
+  margin:36px auto;
+  padding:20px;
+}
+
+/* 语言选择器 - 极简 */
+
+.language-selector{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:120;
+  display:flex;
+  gap:10px;
+}
+.language-selector button{
+  width:38px;
+  height:26px;
+  border-radius:4px;
+  border:1px solid rgba(255,255,255,0.35);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  cursor:pointer;
+  opacity:0.65;
+  transition:transform 0.2s, opacity 0.2s, border 0.2s;
+}
+
+
+
+.language-selector button:hover,
+.language-selector button.active{
+  opacity:1;
+  transform:translateY(-2px);
+  border-color:var(--accent);
+}
+.language-selector button[data-lang="zh"]{background-image:url('cn.png');}
+.language-selector button[data-lang="en"]{
+  background-image:url('uk.jpg');
+  background-position:55% 55%;
+  background-size:135%;
+}
+.language-selector button[data-lang="ja"]{
+  background-image:url('jp.png');
+  background-position:50% 55%;
+  background-size:135%;
+}
+
+
+
+
+/* 头部 - 简洁 */
+header{
+  position:relative;
+  z-index:0;
+  padding:200px 0 200px;
+  overflow:hidden;
+}
+header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(15, 23, 36, 0.45), rgba(15, 23, 36, 0.18));
+  z-index:-1;
+}
+
+.intro .container{
+  display:flex;
+  align-items:center;
+  gap:32px;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+}
+.hero-photo{
+  flex:0 0 240px;
+  display:flex;
+  justify-content:flex-start;
+  
+}
+.hero-photo img{
+  width:200px;
+  height:200px;
+  border-radius:28px;
+  object-fit:cover;
+  box-shadow:0 16px 40px rgba(0,0,0,0.45);
+}
+.hero-info{
+  flex:1 1 240px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:24px;
+  line-height:1.4;
+  color:var(--text);
+  letter-spacing:0.06em;
+  align-items:flex-start;
+}
+.hero-line{
+  display:block;
+}
+
+/* 技能：改为纯文本标签 */
+.skills ul{
+  display:block;
+  list-style:none;
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+.skills li{
+  display:inline-block;
+  margin:6px 14px;
+  padding:0;
+  color:var(--text);
+  font-size:25px;
+  text-shadow:0 4px 12px rgba(0,0,0,0.4);
+}
+.language-selector button{
+  background:transparent;border:1px solid rgba(255,255,255,0.08);
+  color:var(--muted);padding:6px 8px;border-radius:6px;font-size:13px;cursor:pointer;
+}
+.project-card p{color:var(--muted);font-size:13px}
+
+.contact{display:flex;flex-direction:column;gap:24px}
+.contact-entries{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  align-items:flex-start;
+}
+.contact-entry{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+.contact-photo{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 12px 32px rgba(0,0,0,0.45);
+}
+.contact-text{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6;
+}
+.contact-hobbies{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6;
+  align-self:center;
+  text-align:center;
+  margin-top: 30px;    /* 向下移动 */
+  
+    
+  margin-right: 25px;     /* 向左移动 */
+}
+
+
+section{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.35);
+  padding:22px;border-radius:8px;margin-bottom:18px;
+  text-shadow:0 2px 8px rgba(0,0,0,0.55);
+}
+
+.intro{
+  margin-top:32px;
+}
+
+@media (max-width:640px){
+  .container{width:95%;padding:12px}
+  section{padding:16px}
+  .hero-welcome{display:none}
+  .intro .container{
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+  .hero-photo img{width:160px;height:160px}
+  .hero-info{font-size:20px;text-align:center;align-items:center}
+}
+
+.hero-welcome{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Comic Sans MS','Chalkboard SE','Segoe Print','Segoe Script',cursive;
+  font-size:clamp(36px, 6vw, 64px);
+  color:#ffffff;
+  text-align:center;
+  letter-spacing:0.08em;
+  padding:0 10%;
+  z-index:0;
+  pointer-events:none;
+ text-shadow:none;
+}
+
+/* 去掉不必要的视觉特效，保留简洁代码感 */
+.neon-text,.code-line{display:none}
+
+/* 可选：让 <code> 显示为块 */
+pre,code{background:rgba(255,255,255,0.02);padding:6px;border-radius:6px;color:var(--accent);font-family:var(--mono);font-size:13px}
+
+/* small utility */
+.muted{color:var(--muted)}
+.accent{color:var(--accent)}
+/* skills / projects / contact 标题居中 */
+.skills h2,
+.projects h2,
+.contact h2{
+  text-align:center;
+  font-size:32px;
+  letter-spacing:0.08em;
+  margin-bottom:18px;
+}
+
