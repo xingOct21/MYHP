@@ -171,22 +171,29 @@ header::after{
 }
 .contact-text{
   color:var(--muted);
-  font-size:18px;
+  font-size:20px;
   line-height:1.6;
 }
 .contact-hobbies{
   color:var(--muted);
-  font-size:18px;
+  font-size:20px;
   line-height:1.6;
   align-self:center;
   text-align:center;
-  margin-top: 30px;    /* 向下移动 */
-  
-    
-  margin-right: 25px;     /* 向左移动 */
+  margin-top: 40px;    /* 向下移动 */
+
+
+  margin-left: 30px;/* 向右移动 */
 }
-
-
+.contact-personality{
+  color:var(--muted);
+  font-size:20px;
+  line-height:1.6;
+  align-self:center;
+  text-align:center;
+  margin-top: 10px;    /* 向下移动 */
+  margin-right: 705px;/* 向左移动 */
+}
 section{
   background:transparent;
   border:1px solid rgba(255,255,255,0.35);
