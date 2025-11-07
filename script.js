@@ -104,8 +104,8 @@ function updateAge() {
     const datePart = originalText.split('-')[0].trim() || '2002年10月21日';
 
     const zhText = `${datePart} - ${age}岁`;
-    const enText = `Birthday: Oct 21, 2002 - Age ${age}`;
-    const jaText = `誕生日: 2002年10月21日 - ${age}歳`;
+    const enText = `Oct 21, 2002 -  ${age}`;
+    const jaText = `2002年10月21日 - ${age}歳`;
 
     originalContent['age'] = zhText;
     translations.zh['age'] = zhText;
