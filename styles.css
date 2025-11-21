@@ -148,7 +148,6 @@ header::after{
   background:transparent;border:1px solid rgba(255,255,255,0.08);
   color:var(--muted);padding:6px 8px;border-radius:6px;font-size:13px;cursor:pointer;
 }
-.project-card p{color:var(--muted);font-size:13px}
 
 .contact{display:flex;flex-direction:column;gap:24px}
 .contact-entries{
@@ -252,5 +251,19 @@ pre,code{background:rgba(255,255,255,0.02);padding:6px;border-radius:6px;color:v
   font-size:32px;
   letter-spacing:0.08em;
   margin-bottom:18px;
+}
+
+.projects .project-link{
+  color:var(--text);
+  text-decoration:none;
+}
+
+.projects .project-link:visited{
+  color:var(--text);
+}
+
+.projects .project-link:hover,
+.projects .project-link:focus{
+  text-decoration:underline;
 }
 

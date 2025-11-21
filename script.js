@@ -22,9 +22,10 @@ const translations = {
         "skill-12": "Chinese (Native)",
         "skill-13": "Japanese",
         "projects-title": "Projects",
+        "project-tsp-text": "TSP using GA · TS · SA · ACO",
         "contact-title": "About Me",
         "contact-bachelor": "• Bachelor's degree in Software Engineering, Baicheng Normal University, China",
-        "contact-master": "• Master's degree in CIS, iSensingLab, University of Aizu, Japan",
+        "contact-master": "• Master students in CIS, Information Security Lab, University of Aizu, Japan",
         "contact-hobbies": "Hobbies: I enjoy delicious food, fitness, sports, traveling, and watching dramas. I love everything new and beautiful, and I’m always eager to improve myself.",
         "contact-personality": "MBTI: INTJ",
         "copyright": "© 2025 CUI Jiaxing's Homepage. All rights reserved."
@@ -50,9 +51,10 @@ const translations = {
         "skill-12": "中国語(母語者)",
         "skill-13": "英語",
         "projects-title": "プロジェクト",
+        "project-tsp-text": "TSP using GA · TS · SA · ACO",
         "contact-title": "私について",
         "contact-bachelor": "• 中国白城師範学院で情報学学士取得、ソフトウェアエンジニアリング専攻",
-        "contact-master": "• 会津大学、コンピューター理工学研究科、iSensingLab",
+        "contact-master": "• 会津大学、コンピューター理工学研究科、Information Security Lab",
         "contact-hobbies": "趣味: 美味しいものを食べること、筋トレネスやスポーツ、旅行、ドラマを見ることが好きです。新しくて美しいものすべてが好きで、常に自分を成長させたいと思っています。",
         "contact-personality": "MBTI: INTJ",
         "copyright": "© @2025 CUI Jiaxing's Homepage. All rights reserved."
