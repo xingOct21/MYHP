@@ -54,7 +54,7 @@ const translations = {
         "project-tsp-text": "TSP using GA · TS · SA · ACO",
         "contact-title": "私について",
         "contact-bachelor": "• 中国白城師範学院で情報学学士取得、ソフトウェアエンジニアリング専攻",
-        "contact-master": "• 会津大学、コンピューター理工学研究科、Information Security Lab",
+        "contact-master": "• 会津大学大学院、コンピューター理工学研究科、Information Security Lab",
         "contact-hobbies": "趣味: 美味しいものを食べること、筋トレネスやスポーツ、旅行、ドラマを見ることが好きです。新しくて美しいものすべてが好きで、常に自分を成長させたいと思っています。",
         "contact-personality": "MBTI: INTJ",
         "copyright": "© @2025 CUI Jiaxing's Homepage. All rights reserved."
