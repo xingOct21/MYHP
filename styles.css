@@ -253,9 +253,23 @@ pre,code{background:rgba(255,255,255,0.02);padding:6px;border-radius:6px;color:v
   margin-bottom:18px;
 }
 
+.project-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  justify-content:center;
+  margin-top:8px;
+}
+
 .projects .project-link{
   color:var(--text);
   text-decoration:none;
+  border:1px solid rgba(255,255,255,0.35);
+  border-radius:8px;
+  padding:12px 22px;
+  font-size:18px;
+  transition:background 0.2s, border-color 0.2s, transform 0.2s;
+  white-space:nowrap;
 }
 
 .projects .project-link:visited{
@@ -264,6 +278,9 @@ pre,code{background:rgba(255,255,255,0.02);padding:6px;border-radius:6px;color:v
 
 .projects .project-link:hover,
 .projects .project-link:focus{
-  text-decoration:underline;
+  background:rgba(255,255,255,0.08);
+  border-color:rgba(255,255,255,0.7);
+  transform:translateY(-2px);
+  text-decoration:none;
 }
 
