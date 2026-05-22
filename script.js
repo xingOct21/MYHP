@@ -4,9 +4,6 @@ const translations = {
     en: {
         "name": "Jiaxing CUI",
         "education": "Master of Computer Science, University of Aizu",
-        "slogan": "Full-stack developer crafting data-driven products",
-        "about-title": "About Me",
-        "about-content": "Hello! I'm Jiaxing CUI, a passionate software developer. I love programming and solving problems, and enjoy exploring new technologies. In my spare time, I enjoy reading, traveling, and photography, capturing beautiful moments in life.",
         "skills-title": "Skills",
         "skill-1": "C",
         "skill-2": "C++",
@@ -21,23 +18,21 @@ const translations = {
         "skill-11": "OpenSim",
         "skill-12": "Chinese (Native)",
         "skill-13": "Japanese",
+        "skill-14": "Claude Code",
         "projects-title": "Projects",
         "project-tsp-text": "TSP using GA · TS · SA · ACO",
         "project-stockradar-text": "StockRadar",
         "project-triad-text": "TRIAD · Multimodal Deception Detection",
         "contact-title": "About Me",
-        "contact-bachelor": "• Bachelor's degree in Software Engineering, Baicheng Normal University, China",
+        "contact-bachelor": "• Bachelor’s degree in Software Engineering, Baicheng Normal University, China",
         "contact-master": "• Master students in CIS, Information Security Lab, University of Aizu, Japan",
         "contact-hobbies": "Hobbies: I enjoy delicious food, fitness, sports, traveling, and watching dramas. I love everything new and beautiful, and I’m always eager to improve myself.",
         "contact-personality": "MBTI: INTJ",
-        "copyright": "© 2025 CUI Jiaxing's Homepage. All rights reserved."
+        "copyright": "© 2025 CUI Jiaxing’s Homepage. All rights reserved."
     },
     ja: {
         "name": "崔嘉興(サイ カコウ)",
         "education": "会津大学大学院コンピュータ理工学研究科",
-        "slogan": "データ志向のプロダクトに注力するフルスタック開発者",
-        "about-title": "私について",
-        "about-content": "こんにちは！私は崔嘉興、情熱的なソフトウェア開発者です。プログラミングと問題解決が大好きで、新しい技術を探索するのが好きです。余暇には、読書、旅行、写真撮影を楽しんで、人生の美しい瞬間を記録しています。",
         "skills-title": "スキル",
         "skill-1": "C",
         "skill-2": "C++",
@@ -52,6 +47,7 @@ const translations = {
         "skill-11": "OpenSim",
         "skill-12": "中国語(母語者)",
         "skill-13": "英語",
+        "skill-14": "Claude Code",
         "projects-title": "プロジェクト",
         "project-tsp-text": "TSP using GA · TS · SA · ACO",
         "project-stockradar-text": "StockRadar",
@@ -61,7 +57,7 @@ const translations = {
         "contact-master": "• 会津大学大学院、コンピューター理工学研究科、Information Security Lab",
         "contact-hobbies": "趣味: 美味しいものを食べること、筋トレネスやスポーツ、旅行、ドラマを見ることが好きです。新しくて美しいものすべてが好きで、常に自分を成長させたいと思っています。",
         "contact-personality": "MBTI: INTJ",
-        "copyright": "© @2025 CUI Jiaxing's Homepage. All rights reserved."
+        "copyright": "© 2025 CUI Jiaxing’s Homepage. All rights reserved."
     }
 };
 
@@ -158,6 +154,74 @@ function switchLanguage(lang) {
     document.documentElement.lang = lang;
 }
 
+// 粒子连线背景
+function initParticles() {
+    const canvas = document.createElement('canvas');
+    Object.assign(canvas.style, {
+        position: 'fixed', top: '0', left: '0',
+        width: '100%', height: '100%',
+        pointerEvents: 'none', zIndex: '0'
+    });
+    document.body.prepend(canvas);
+    const ctx = canvas.getContext('2d');
+    const A = [0, 229, 204];
+    let pts = [];
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    class Dot {
+        constructor() {
+            this.x  = Math.random() * canvas.width;
+            this.y  = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.22;
+            this.vy = (Math.random() - 0.5) * 0.22;
+            this.r  = Math.random() * 1.2 + 0.4;
+            this.a  = Math.random() * 0.3 + 0.08;
+        }
+        move() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${A},${this.a})`;
+            ctx.fill();
+        }
+    }
+
+    resize();
+    for (let i = 0; i < 70; i++) pts.push(new Dot());
+    window.addEventListener('resize', resize, { passive: true });
+
+    (function frame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const p of pts) { p.move(); p.draw(); }
+        for (let i = 0; i < pts.length; i++) {
+            for (let j = i + 1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x;
+                const dy = pts[i].y - pts[j].y;
+                const d  = Math.sqrt(dx * dx + dy * dy);
+                if (d < 115) {
+                    ctx.beginPath();
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.strokeStyle = `rgba(${A},${0.13 * (1 - d / 115)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(frame);
+    })();
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', () => {
     // 首先从HTML中读取原始内容
@@ -169,25 +233,23 @@ document.addEventListener('DOMContentLoaded', () => {
             switchLanguage(lang);
         });
     });
-    
+
     // 初始化默认语言
     switchLanguage(currentLang);
-    
-    // 添加页面动画效果
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.add('fade-in');
-    });
+
+    // 粒子背景
+    initParticles();
+
+    // 初始可见区域检测
+    requestAnimationFrame(checkSectionVisibility);
 });
 
-// 页面滚动动画
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        
-        if (sectionTop < windowHeight * 0.75) {
+function checkSectionVisibility() {
+    document.querySelectorAll('section').forEach(section => {
+        if (section.getBoundingClientRect().top < window.innerHeight * 0.88) {
             section.classList.add('visible');
         }
     });
-});
+}
+
+window.addEventListener('scroll', checkSectionVisibility, { passive: true });
