@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碎碎念 | CUI Jiaxing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="moments.css">
+</head>
+<body>
+    <div class="language-selector">
+        <button data-lang="zh" class="active"></button>
+        <button data-lang="en"></button>
+        <button data-lang="ja"></button>
+    </div>
+
+    <header class="moments-header">
+        <a href="index.html" class="back-link" data-i18n="back-home">← 返回主页</a>
+        <h1 class="moments-page-title" data-i18n="moments-title">碎碎念</h1>
+        <p class="moments-subtitle" data-i18n="moments-subtitle">我说过的话，留过的痕</p>
+    </header>
+
+    <div id="posts-container" class="posts-container"></div>
+
+    <footer>
+        <div class="container">
+            <p data-i18n="copyright">@2025 CUI Jiaxing's Homepage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    <script src="moments.js"></script>
+</body>
+</html>

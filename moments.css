@@ -1,0 +1,279 @@
+/* ── moments page header ── */
+.moments-header {
+  position: relative;
+  z-index: 2;
+  padding: 100px 20px 60px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.back-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+  align-self: flex-start;
+  margin-left: max(5%, calc(50% - 360px));
+}
+.back-link:hover { color: var(--accent); }
+
+.moments-page-title {
+  font-family: var(--mono);
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff 30%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.moments-subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* ── posts container ── */
+.posts-container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── post card ── */
+.post-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 28px 32px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.post-card:hover {
+  border-color: rgba(0,229,204,0.38);
+  box-shadow: 0 4px 32px rgba(0,229,204,0.07), inset 0 1px 0 rgba(0,229,204,0.06);
+}
+
+.post-date {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  opacity: 0.8;
+  margin-bottom: 14px;
+}
+
+.post-content {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+
+/* ── comments section ── */
+.comments-heading {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.comments-heading::before { content: '//'; font-weight: 400; opacity: 0.5; }
+.comments-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.comment-item {
+  padding: 10px 14px;
+  background: rgba(0,229,204,0.03);
+  border: 1px solid rgba(0,229,204,0.09);
+  border-radius: 6px;
+}
+
+.comment-meta {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.comment-author {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.comment-time {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+.comment-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.no-comments-msg {
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.4;
+  text-align: center;
+  padding: 10px 0 14px;
+}
+
+/* ── comment form ── */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.comment-name,
+.comment-text {
+  background: rgba(0,229,204,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 8px 12px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.comment-name:focus,
+.comment-text:focus {
+  border-color: var(--border-hi);
+  background: rgba(0,229,204,0.07);
+}
+.comment-name::placeholder,
+.comment-text::placeholder {
+  color: var(--muted);
+  opacity: 0.4;
+}
+
+.comment-submit {
+  align-self: flex-end;
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 7px 22px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.comment-submit:hover {
+  background: rgba(0,229,204,0.16);
+  border-color: var(--border-hi);
+  box-shadow: 0 0 12px rgba(0,229,204,0.14);
+}
+.comment-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── main page moments entry button ── */
+.moments-entry .container {
+  display: flex;
+  justify-content: center;
+  padding: 28px 20px;
+}
+
+.moments-entry-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 44px;
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  background: var(--surface);
+  overflow: hidden;
+  transition:
+    color 0.2s, border-color 0.2s, background 0.2s,
+    transform 0.2s, box-shadow 0.2s;
+}
+
+.moments-entry-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(110,80,255,0.8), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.moments-entry-btn::after {
+  content: '→';
+  color: var(--accent);
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.moments-entry-btn:hover {
+  color: var(--text);
+  border-color: var(--border-hi);
+  background: rgba(0,229,204,0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,229,204,0.14);
+}
+.moments-entry-btn:hover::before { opacity: 1; }
+.moments-entry-btn:hover::after  { opacity: 1; transform: translateX(0); }
+
+/* ── responsive ── */
+@media (max-width: 640px) {
+  .posts-container { width: 95%; }
+  .post-card { padding: 20px 16px; }
+  .back-link { margin-left: 2.5%; }
+  .moments-entry-btn { padding: 16px 32px; font-size: 14px; }
+}

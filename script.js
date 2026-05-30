@@ -29,6 +29,7 @@ const translations = {
         "contact-hobbies": "Hobbies: I enjoy delicious food, fitness, sports, traveling, and watching dramas. I love everything new and beautiful, and I’m always eager to improve myself.",
         "contact-personality": "MBTI: INTJ",
         "contact-github": "GitHub: xingOct21",
+        "moments-btn": "Musings",
         "copyright": "© 2025 CUI Jiaxing’s Homepage. All rights reserved."
     },
     ja: {
@@ -59,6 +60,7 @@ const translations = {
         "contact-hobbies": "趣味: 美味しいものを食べること、筋トレネスやスポーツ、旅行、ドラマを見ることが好きです。新しくて美しいものすべてが好きで、常に自分を成長させたいと思っています。",
         "contact-personality": "MBTI: INTJ",
         "contact-github": "GitHub: xingOct21",
+        "moments-btn": "つぶやき",
         "copyright": "© 2025 CUI Jiaxing’s Homepage. All rights reserved."
     }
 };
