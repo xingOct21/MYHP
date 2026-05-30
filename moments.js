@@ -6,7 +6,7 @@ const posts = [
   {
     id: 'post-20260530',
     date: '2026-05-30',
-    content: '这里是我的第一条碎碎念。\n\n以后会在这里记录生活的点滴、随想，还有一些没什么意义但想说出来的话。欢迎来留言 :)'
+    content: '由于最近在着手于项目MDD的完善和论文的准备工作，所有该项目目前在github被我设置成了私有状态，论文发表之后，我会再次公开'
   }
 ];
 
@@ -42,7 +42,9 @@ const i18n = {
     'comment-placeholder': '说点什么…',
     'submit-btn':          '发送',
     'submitting':          '发送中…',
-    'no-comments':         '还没有留言，快来说点什么吧',
+    'comment-btn':         '留言',
+    'add-comment-btn':     '+ 添加留言',
+    'cancel-btn':          '取消',
     'anonymous':           '匿名',
     'copyright':           '@2025 CUI Jiaxing\'s Homepage. All rights reserved.'
   },
@@ -57,7 +59,9 @@ const i18n = {
     'comment-placeholder': 'Say something…',
     'submit-btn':          'Send',
     'submitting':          'Sending…',
-    'no-comments':         'No comments yet. Be the first!',
+    'comment-btn':         'Comment',
+    'add-comment-btn':     '+ Add a Comment',
+    'cancel-btn':          'Cancel',
     'anonymous':           'Anonymous',
     'copyright':           '© 2025 CUI Jiaxing\'s Homepage. All rights reserved.'
   },
@@ -72,7 +76,9 @@ const i18n = {
     'comment-placeholder': '何か言ってください…',
     'submit-btn':          '送信',
     'submitting':          '送信中…',
-    'no-comments':         'まだコメントがありません。最初のコメントをどうぞ',
+    'comment-btn':         'コメント',
+    'add-comment-btn':     '+ コメントを追加',
+    'cancel-btn':          'キャンセル',
     'anonymous':           '匿名',
     'copyright':           '© 2025 CUI Jiaxing\'s Homepage. All rights reserved.'
   }
@@ -90,8 +96,12 @@ function applyLang(lang) {
   document.querySelectorAll('.comment-name').forEach(el => { el.placeholder = t('name-placeholder'); });
   document.querySelectorAll('.comment-text').forEach(el => { el.placeholder = t('comment-placeholder'); });
   document.querySelectorAll('.comment-submit').forEach(el => { if (!el.disabled) el.textContent = t('submit-btn'); });
-  document.querySelectorAll('.no-comments-msg').forEach(el => { el.textContent = t('no-comments'); });
+  document.querySelectorAll('.comment-cancel').forEach(el => { el.textContent = t('cancel-btn'); });
   document.querySelectorAll('.comments-heading').forEach(el => { el.textContent = t('comments-heading'); });
+  // toggle button text depends on whether there are comments
+  document.querySelectorAll('.comment-toggle-btn').forEach(el => {
+    el.textContent = el.dataset.hasComments === 'true' ? t('add-comment-btn') : t('comment-btn');
+  });
   document.querySelectorAll('.language-selector button').forEach(btn => {
     btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
   });
@@ -124,15 +134,22 @@ function buildPostHTML(post) {
     <div class="post-card" id="card-${post.id}">
       <div class="post-date">${formatDate(post.date)}</div>
       <div class="post-content">${escapeHtml(post.content)}</div>
-      <div class="comments-section">
-        <h3 class="comments-heading">${t('comments-heading')}</h3>
-        <div class="comment-list" id="list-${post.id}"></div>
-        <p class="no-comments-msg" id="empty-${post.id}">${t('no-comments')}</p>
-        <form class="comment-form" id="form-${post.id}">
+      <div class="comments-section" id="cs-${post.id}">
+        <div class="comment-list-wrap" id="list-wrap-${post.id}">
+          <h3 class="comments-heading">${t('comments-heading')}</h3>
+          <div class="comment-list" id="list-${post.id}"></div>
+        </div>
+        <form class="comment-form" id="form-${post.id}" novalidate>
           <input class="comment-name" type="text" placeholder="${t('name-placeholder')}" maxlength="30" autocomplete="off">
           <textarea class="comment-text" placeholder="${t('comment-placeholder')}" rows="3" maxlength="500"></textarea>
-          <button class="comment-submit" type="submit">${t('submit-btn')}</button>
+          <div class="form-actions">
+            <button type="button" class="comment-cancel">${t('cancel-btn')}</button>
+            <button class="comment-submit" type="submit">${t('submit-btn')}</button>
+          </div>
         </form>
+        <button type="button" class="comment-toggle-btn" id="toggle-${post.id}" data-has-comments="false">
+          ${t('comment-btn')}
+        </button>
       </div>
     </div>`;
 }
@@ -155,20 +172,51 @@ function renderComment(id, data) {
 let db = null;
 
 function watchComments(postId) {
+  const listEl     = document.getElementById('list-' + postId);
+  const listWrapEl = document.getElementById('list-wrap-' + postId);
+  const toggleBtn  = document.getElementById('toggle-' + postId);
+
+  // keep list-wrap hidden initially
+  listWrapEl.style.display = 'none';
+
   if (!db) return;
+
   db.ref('comments/' + postId).on('value', snap => {
-    const listEl  = document.getElementById('list-' + postId);
-    const emptyEl = document.getElementById('empty-' + postId);
     const data = snap.val();
     if (!data) {
       listEl.innerHTML = '';
-      emptyEl.style.display = 'block';
-      return;
+      listWrapEl.style.display = 'none';
+      toggleBtn.dataset.hasComments = 'false';
+      toggleBtn.textContent = t('comment-btn');
+    } else {
+      listWrapEl.style.display = 'block';
+      toggleBtn.dataset.hasComments = 'true';
+      toggleBtn.textContent = t('add-comment-btn');
+      const sorted = Object.entries(data).sort((a, b) => a[1].timestamp - b[1].timestamp);
+      listEl.innerHTML = sorted.map(([id, d]) => renderComment(id, d)).join('');
     }
-    emptyEl.style.display = 'none';
-    const sorted = Object.entries(data).sort((a, b) => a[1].timestamp - b[1].timestamp);
-    listEl.innerHTML = sorted.map(([id, d]) => renderComment(id, d)).join('');
   });
+}
+
+function bindToggle(postId) {
+  const sectionEl = document.getElementById('cs-' + postId);
+  const formEl    = document.getElementById('form-' + postId);
+  const toggleBtn = document.getElementById('toggle-' + postId);
+  const cancelBtn = formEl.querySelector('.comment-cancel');
+
+  function openForm() {
+    formEl.classList.add('form-visible');
+    sectionEl.classList.add('form-open');
+    setTimeout(() => formEl.querySelector('.comment-text').focus(), 50);
+  }
+
+  function closeForm() {
+    formEl.classList.remove('form-visible');
+    sectionEl.classList.remove('form-open');
+  }
+
+  toggleBtn.addEventListener('click', openForm);
+  cancelBtn.addEventListener('click', closeForm);
 }
 
 function bindForm(postId) {
@@ -192,6 +240,9 @@ function bindForm(postId) {
       nameEl.value = '';
       submitEl.disabled = false;
       submitEl.textContent = t('submit-btn');
+      // close form after successful submit
+      form.classList.remove('form-visible');
+      document.getElementById('cs-' + postId).classList.remove('form-open');
     }).catch(() => {
       submitEl.disabled = false;
       submitEl.textContent = t('submit-btn');
@@ -279,7 +330,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('posts-container').innerHTML = posts.map(buildPostHTML).join('');
-  posts.forEach(p => { watchComments(p.id); bindForm(p.id); });
+  posts.forEach(p => {
+    watchComments(p.id);
+    bindToggle(p.id);
+    bindForm(p.id);
+  });
 
   document.querySelectorAll('.language-selector button').forEach(btn => {
     btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));

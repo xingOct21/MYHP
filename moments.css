@@ -3,12 +3,12 @@
   position: relative;
   z-index: 2;
   width: 90%;
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 auto;
   padding-bottom: 60px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 /* ── post card ── */
@@ -18,7 +18,7 @@
   border-radius: var(--r);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  padding: 28px 32px;
+  padding: 32px 40px 28px;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -32,28 +32,32 @@
   letter-spacing: 0.2em;
   color: var(--accent);
   opacity: 0.8;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .post-content {
   color: var(--text);
   font-size: 15px;
-  line-height: 1.85;
+  line-height: 1.9;
   white-space: pre-wrap;
   word-break: break-word;
-  padding-bottom: 24px;
+  padding-bottom: 26px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 22px;
 }
 
-/* ── comments ── */
+/* ── comments section ── */
+.comment-list-wrap {
+  margin-bottom: 14px;
+}
+
 .comments-heading {
   font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -72,7 +76,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 14px;
 }
 
 .comment-item {
@@ -109,20 +112,53 @@
   word-break: break-word;
 }
 
-.no-comments-msg {
-  font-size: 12px;
+/* ── comment toggle button ── */
+.comment-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 9px 0;
+  background: transparent;
+  border: 1px dashed rgba(0,229,204,0.22);
+  border-radius: 6px;
   color: var(--muted);
-  opacity: 0.4;
-  text-align: center;
-  padding: 10px 0 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 
-/* ── comment form ── */
+.comment-toggle-btn:hover {
+  color: var(--accent);
+  border-color: rgba(0,229,204,0.5);
+  background: rgba(0,229,204,0.04);
+}
+
+/* hide toggle button when form is open */
+.comments-section.form-open .comment-toggle-btn {
+  display: none;
+}
+
+/* ── comment form (collapsed by default, expands with .form-visible) ── */
 .comment-form {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding-top: 4px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+
+.comment-form.form-visible {
+  max-height: 360px;
+  opacity: 1;
+  pointer-events: auto;
+  padding-bottom: 2px;
 }
 
 .comment-name,
@@ -151,8 +187,33 @@
   opacity: 0.4;
 }
 
+/* ── form action row ── */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.comment-cancel {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.comment-cancel:hover {
+  color: var(--text);
+  border-color: rgba(0,229,204,0.3);
+}
+
 .comment-submit {
-  align-self: flex-end;
   background: var(--accent-dim);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -180,5 +241,5 @@
 /* ── responsive ── */
 @media (max-width: 640px) {
   .posts-container { width: 95%; }
-  .post-card { padding: 20px 16px; }
+  .post-card { padding: 20px 18px; }
 }
