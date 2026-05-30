@@ -1,7 +1,19 @@
+// Firebase 配置（与 moments.js 填写相同的值）
+const firebaseConfig = {
+    apiKey:            'AIzaSyBef8OM4jnjAFSGZxks5tbczo6HqnBWhxY',
+    authDomain:        'myhp-4b66d.firebaseapp.com',
+    databaseURL:       'https://myhp-4b66d-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId:         'myhp-4b66d',
+    storageBucket:     'myhp-4b66d.firebasestorage.app',
+    messagingSenderId: '687344178304',
+    appId:             '1:687344178304:web:31fd8a07b620e41c364265'
+};
+
 // 多语言配置
 const translations = {
     zh: {},
     en: {
+        "visitors-label": "visitors",
         "name": "Jiaxing CUI",
         "education": "Master of Computer Science, University of Aizu",
         "skills-title": "Skills",
@@ -35,6 +47,7 @@ const translations = {
         "copyright": "© 2025 CUI Jiaxing’s Homepage. All rights reserved."
     },
     ja: {
+        "visitors-label": "訪問者",
         "name": "崔嘉興(サイ カコウ)",
         "education": "会津大学大学院コンピュータ理工学研究科",
         "skills-title": "スキル",
@@ -131,6 +144,7 @@ function switchLanguage(lang) {
     }
 
     currentLang = lang;
+    localStorage.setItem('lang', lang);
 
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
@@ -230,6 +244,40 @@ function initParticles() {
     })();
 }
 
+function initVisitorCounter() {
+    const el = document.getElementById('visitor-count');
+    if (!el) return;
+
+    const VISITS_SEED = 237;
+
+    if (firebaseConfig.apiKey.startsWith('REPLACE')) {
+        animateCount(el, VISITS_SEED, 1400);
+        return;
+    }
+
+    try {
+        const app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
+        const db  = firebase.database(app);
+        db.ref('visits').transaction(n => (n ?? VISITS_SEED) + 1, (err, committed, snap) => {
+            if (!err && committed) animateCount(el, snap.val(), 1400);
+            else animateCount(el, VISITS_SEED, 1400);
+        });
+    } catch (e) {
+        animateCount(el, VISITS_SEED, 1400);
+    }
+}
+
+function animateCount(el, target, duration) {
+    const start = performance.now();
+    function step(now) {
+        const p = Math.min((now - start) / duration, 1);
+        el.textContent = Math.floor(p * p * target);
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', () => {
     // 首先从HTML中读取原始内容
@@ -242,8 +290,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 初始化默认语言
-    switchLanguage(currentLang);
+    // 初始化默认语言（优先读取跨页面持久化的语言设置）
+    switchLanguage(localStorage.getItem('lang') || currentLang);
+
+    // 访问量计数（Firebase 可用时读真实值，否则显示占位数）
+    initVisitorCounter();
 
     // 粒子背景
     initParticles();

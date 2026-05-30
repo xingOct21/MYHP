@@ -201,6 +201,49 @@ header::after {
   50%       { opacity: 0; }
 }
 
+.visitor-counter {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.vc-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: vc-pulse 2.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes vc-pulse {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 8px  var(--accent); }
+  50%       { opacity: 0.3; box-shadow: 0 0 2px  var(--accent); }
+}
+
+.vc-num {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(0,229,204,0.45);
+  letter-spacing: 0.06em;
+  min-width: 3ch;
+  text-align: right;
+}
+
+.vc-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 /* sub-page header: shorter padding, hero-welcome still centered */
 header.header-sub {
   padding: 90px 0 50px;

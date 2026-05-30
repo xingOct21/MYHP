@@ -76,7 +76,7 @@ const projectsData = [
 const i18n = {
   zh: {
     'page-title':    '我的项目',
-    'page-subtitle': '在校期间参与的研究与开发项目',
+    'page-subtitle': '研究与开发项目',
     'nav-home':      '主页',
     'nav-projects':  '我的项目',
     'nav-moments':   '碎碎念',
@@ -139,6 +139,7 @@ function renderProjects(lang) {
 // ════════════════════════════════════════════════════════
 function applyLang(lang) {
   currentLang = lang;
+  localStorage.setItem('lang', lang);
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = i18n[lang][el.getAttribute('data-i18n')];
     if (v) el.textContent = v;
@@ -223,6 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.language-selector button').forEach(btn => {
     btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
   });
-  applyLang('zh');
+  applyLang(localStorage.getItem('lang') || 'zh');
   initParticles();
 });

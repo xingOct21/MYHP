@@ -20,13 +20,13 @@ const posts = [
 //  4. Replace every "REPLACE_WITH_..." value below
 // ════════════════════════════════════════════════════════
 const firebaseConfig = {
-  apiKey:            'REPLACE_WITH_YOUR_API_KEY',
-  authDomain:        'REPLACE_WITH_YOUR_PROJECT_ID.firebaseapp.com',
-  databaseURL:       'https://REPLACE_WITH_YOUR_PROJECT_ID-default-rtdb.firebaseio.com',
-  projectId:         'REPLACE_WITH_YOUR_PROJECT_ID',
-  storageBucket:     'REPLACE_WITH_YOUR_PROJECT_ID.appspot.com',
-  messagingSenderId: 'REPLACE_WITH_YOUR_SENDER_ID',
-  appId:             'REPLACE_WITH_YOUR_APP_ID'
+  apiKey:            'AIzaSyBef8OM4jnjAFSGZxks5tbczo6HqnBWhxY',
+  authDomain:        'myhp-4b66d.firebaseapp.com',
+  databaseURL:       'https://myhp-4b66d-default-rtdb.asia-southeast1.firebasedatabase.app',
+  projectId:         'myhp-4b66d',
+  storageBucket:     'myhp-4b66d.firebasestorage.app',
+  messagingSenderId: '687344178304',
+  appId:             '1:687344178304:web:31fd8a07b620e41c364265'
 };
 
 // ════════════════════════════════════════════════════════
@@ -88,6 +88,7 @@ function t(key) { return (i18n[currentLang] || i18n.zh)[key] || key; }
 
 function applyLang(lang) {
   currentLang = lang;
+  localStorage.setItem('lang', lang);
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = i18n[lang][el.getAttribute('data-i18n')];
     if (v) el.textContent = v;
@@ -343,6 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.language-selector button').forEach(btn => {
     btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
   });
-  applyLang('zh');
+  applyLang(localStorage.getItem('lang') || 'zh');
   initParticles();
 });
