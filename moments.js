@@ -6,7 +6,9 @@ const posts = [
   {
     id: 'post-20260530',
     date: '2026-05-30',
-    content: '由于最近在着手于项目MDD的完善和论文的准备工作，所以该项目目前在github被我设置成了私有状态，论文发表之后，我会再次公开'
+    zh: '由于最近在着手于项目MDD的完善和论文的准备工作，所以该项目目前在github被我设置成了私有状态，论文发表之后，我会再次公开',
+    en: 'Due to my recent focus on finalizing project MDD and preparing my thesis, the repository has been set to private on GitHub. It will be made public again after the paper is published.',
+    ja: '最近MDDプロジェクトの仕上げと論文の準備に取り組んでいるため、リポジトリをGitHubでプライベートに設定しています。論文発表後に再公開する予定です。'
   }
 ];
 
@@ -33,7 +35,6 @@ const firebaseConfig = {
 const i18n = {
   zh: {
     'moments-title':       '碎碎念',
-    'moments-subtitle':    '我说过的话，留过的痕',
     'nav-home':            '主页',
     'nav-projects':        '我的项目',
     'nav-moments':         '碎碎念',
@@ -50,7 +51,6 @@ const i18n = {
   },
   en: {
     'moments-title':       'Musings',
-    'moments-subtitle':    'Words I\'ve said, traces I\'ve left',
     'nav-home':            'Home',
     'nav-projects':        'Projects',
     'nav-moments':         'Musings',
@@ -67,7 +67,6 @@ const i18n = {
   },
   ja: {
     'moments-title':       'つぶやき',
-    'moments-subtitle':    '残した言葉、刻んだ痕跡',
     'nav-home':            'ホーム',
     'nav-projects':        'プロジェクト',
     'nav-moments':         'つぶやき',
@@ -106,6 +105,11 @@ function applyLang(lang) {
     btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
   });
   document.documentElement.lang = lang;
+  // update post content to current language
+  posts.forEach(post => {
+    const el = document.querySelector('#card-' + post.id + ' .post-content');
+    if (el) el.textContent = post[lang] || post.zh;
+  });
 }
 
 // ════════════════════════════════════════════════════════
@@ -133,7 +137,7 @@ function buildPostHTML(post) {
   return `
     <div class="post-card" id="card-${post.id}">
       <div class="post-date">${formatDate(post.date)}</div>
-      <div class="post-content">${escapeHtml(post.content)}</div>
+      <div class="post-content">${escapeHtml(post[currentLang] || post.zh)}</div>
       <div class="comments-section" id="cs-${post.id}">
         <div class="comment-list-wrap" id="list-wrap-${post.id}">
           <h3 class="comments-heading">${t('comments-heading')}</h3>
