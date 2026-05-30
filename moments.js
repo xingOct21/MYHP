@@ -34,7 +34,9 @@ const i18n = {
   zh: {
     'moments-title':       '碎碎念',
     'moments-subtitle':    '我说过的话，留过的痕',
-    'back-home':           '← 返回主页',
+    'nav-home':            '主页',
+    'nav-projects':        '我的项目',
+    'nav-moments':         '碎碎念',
     'comments-heading':    '留言',
     'name-placeholder':    '昵称（可不填）',
     'comment-placeholder': '说点什么…',
@@ -47,7 +49,9 @@ const i18n = {
   en: {
     'moments-title':       'Musings',
     'moments-subtitle':    'Words I\'ve said, traces I\'ve left',
-    'back-home':           '← Back to Home',
+    'nav-home':            'Home',
+    'nav-projects':        'Projects',
+    'nav-moments':         'Musings',
     'comments-heading':    'Comments',
     'name-placeholder':    'Nickname (optional)',
     'comment-placeholder': 'Say something…',
@@ -60,7 +64,9 @@ const i18n = {
   ja: {
     'moments-title':       'つぶやき',
     'moments-subtitle':    '残した言葉、刻んだ痕跡',
-    'back-home':           '← ホームへ戻る',
+    'nav-home':            'ホーム',
+    'nav-projects':        'プロジェクト',
+    'nav-moments':         'つぶやき',
     'comments-heading':    'コメント',
     'name-placeholder':    'ニックネーム（任意）',
     'comment-placeholder': '何か言ってください…',

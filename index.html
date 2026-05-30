@@ -7,14 +7,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=5">
-    <link rel="stylesheet" href="moments.css?v=1">
-    <script src="script.js?v=5" defer></script>
+    <link rel="stylesheet" href="styles.css?v=6">
+    <script src="script.js?v=6" defer></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 </head>
 <body>
+    <nav class="site-nav" aria-label="页面导航">
+        <a href="index.html" class="nav-btn active" data-i18n="nav-home">主页</a>
+        <a href="projects.html" class="nav-btn" data-i18n="nav-projects">我的项目</a>
+        <a href="moments.html" class="nav-btn" data-i18n="nav-moments">碎碎念</a>
+    </nav>
     <div class="language-selector" aria-label="语言切换">
         <button data-lang="zh" class="active" aria-label="中文"></button>
         <button data-lang="en" aria-label="English"></button>
@@ -87,23 +91,6 @@
         </div>
     </section>
     
-    <section class="projects" id="projects">
-        <div class="container">
-            <h2 data-i18n="projects-title">我的项目</h2>
-            <div class="project-list">
-                <a class="project-link" href="https://github.com/xingOct21/TSP-Problem-using-TA-SA-GA-ACO" target="_blank" rel="noopener noreferrer" data-i18n="project-tsp-text">TSP using GA · TS · SA · ACO</a>
-                <a class="project-link" href="https://github.com/xingOct21/StockRadar--Release" target="_blank" rel="noopener noreferrer" data-i18n="project-stockradar-text">StockRadar</a>
-                <a class="project-link" href="https://github.com/xingOct21/TRIAD-Tri-modal-Reasoning-for-Interrogation-And-Deception" target="_blank" rel="noopener noreferrer" data-i18n="project-triad-text">多模态欺骗检测系统</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="moments-entry">
-        <div class="container">
-            <a href="moments.html" class="moments-entry-btn" data-i18n="moments-btn">碎碎念</a>
-        </div>
-    </section>
-
     <footer>
         <div class="container">
             <p data-i18n="copyright">@2025 CUI Jiaxing's Homepage. All rights reserved.</p>
