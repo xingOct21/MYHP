@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | CUI Jiaxing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-btn">主页</a>
+    <a href="moments.html" class="nav-btn">碎碎念</a>
+  </nav>
+
+  <!-- 登录面板 -->
+  <div id="login-panel" class="admin-wrap">
+    <div class="admin-card">
+      <h1 class="admin-title">// admin</h1>
+      <form id="login-form" novalidate>
+        <div class="field-group">
+          <input id="email" type="email" placeholder="邮箱" autocomplete="username" required>
+        </div>
+        <div class="field-group">
+          <input id="password" type="password" placeholder="密码" autocomplete="current-password" required>
+        </div>
+        <p id="login-error" class="error-msg" hidden></p>
+        <button type="submit" class="btn-primary">登录</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 管理面板（登录后显示） -->
+  <div id="admin-panel" class="admin-wrap" hidden>
+    <div class="admin-card wide">
+
+      <div class="admin-header">
+        <h1 class="admin-title">// 发布碎碎念</h1>
+        <div class="admin-user">
+          <span id="user-email" class="user-email"></span>
+          <button id="logout-btn" class="btn-ghost">退出</button>
+        </div>
+      </div>
+
+      <form id="post-form" novalidate>
+        <div class="field-group">
+          <label class="field-label">日期</label>
+          <input id="post-date" type="date" required>
+        </div>
+        <div class="field-group">
+          <label class="field-label">中文 *</label>
+          <textarea id="post-zh" rows="4" placeholder="写点什么…" required></textarea>
+        </div>
+        <div class="field-group">
+          <label class="field-label">English</label>
+          <textarea id="post-en" rows="4" placeholder="English translation…"></textarea>
+        </div>
+        <div class="field-group">
+          <label class="field-label">日本語</label>
+          <textarea id="post-ja" rows="4" placeholder="日本語訳…"></textarea>
+        </div>
+        <p id="post-error" class="error-msg" hidden></p>
+        <button type="submit" class="btn-primary" id="post-submit-btn">发布</button>
+      </form>
+
+      <div class="divider"></div>
+
+      <h2 class="admin-subtitle">// 已发布</h2>
+      <div id="post-list"></div>
+
+      <div class="divider"></div>
+
+      <h2 class="admin-subtitle">// 留言管理</h2>
+      <div id="comments-section"></div>
+
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

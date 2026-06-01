@@ -107,7 +107,7 @@ function applyLang(lang) {
   });
   document.documentElement.lang = lang;
   // update post content to current language
-  posts.forEach(post => {
+  renderedPosts.forEach(post => {
     const el = document.querySelector('#card-' + post.id + ' .post-content');
     if (el) el.textContent = post[lang] || post.zh;
   });
@@ -175,6 +175,50 @@ function renderComment(id, data) {
 //  Firebase comments
 // ════════════════════════════════════════════════════════
 let db = null;
+let renderedPosts = [];
+
+// ════════════════════════════════════════════════════════
+//  Load posts from Firebase DB (static array as fallback)
+// ════════════════════════════════════════════════════════
+function loadPostsFromDB() {
+  const container = document.getElementById('posts-container');
+
+  if (!db) {
+    renderedPosts = posts;
+    renderAllPosts(posts);
+    return;
+  }
+
+  container.innerHTML = '<div class="posts-loading">// 加载中…</div>';
+
+  db.ref('posts').orderByChild('timestamp').once('value', snap => {
+    const data = snap.val();
+    if (!data) {
+      renderedPosts = posts;
+      renderAllPosts(posts);
+    } else {
+      const loaded = Object.entries(data)
+        .map(([, val]) => val)
+        .sort((a, b) => b.timestamp - a.timestamp);
+      renderedPosts = loaded;
+      renderAllPosts(loaded);
+    }
+  });
+}
+
+function renderAllPosts(postList) {
+  const container = document.getElementById('posts-container');
+  container.innerHTML = postList.map(buildPostHTML).join('');
+  postList.forEach(p => {
+    watchComments(p.id);
+    bindToggle(p.id);
+    bindForm(p.id);
+  });
+  renderedPosts.forEach(post => {
+    const el = document.querySelector('#card-' + post.id + ' .post-content');
+    if (el) el.textContent = post[currentLang] || post.zh;
+  });
+}
 
 function watchComments(postId) {
   const listEl     = document.getElementById('list-' + postId);
@@ -334,12 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.getElementById('posts-container').innerHTML = posts.map(buildPostHTML).join('');
-  posts.forEach(p => {
-    watchComments(p.id);
-    bindToggle(p.id);
-    bindForm(p.id);
-  });
+  loadPostsFromDB();
 
   document.querySelectorAll('.language-selector button').forEach(btn => {
     btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));

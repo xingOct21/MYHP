@@ -9,6 +9,47 @@ const firebaseConfig = {
     appId:             '1:687344178304:web:31fd8a07b620e41c364265'
 };
 
+let recentPosts = [];
+
+function escapeHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatRecentDate(dateStr) {
+    const [y, m, d] = dateStr.split('-');
+    return `${y} · ${String(m).padStart(2,'0')} · ${String(d).padStart(2,'0')}`;
+}
+
+function loadRecentPosts() {
+    const container = document.getElementById('recent-posts-container');
+    if (!container) return;
+    try {
+        const app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
+        const db  = firebase.database(app);
+        db.ref('posts').orderByChild('timestamp').limitToLast(3).once('value', snap => {
+            const data = snap.val();
+            if (!data) return;
+            recentPosts = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+            renderRecentPosts();
+        });
+    } catch(e) { /* silent: section stays empty */ }
+}
+
+function renderRecentPosts() {
+    const container = document.getElementById('recent-posts-container');
+    if (!container || !recentPosts.length) return;
+    const lang = currentLang;
+    container.innerHTML =
+        '<div class="recent-post-list">' +
+        recentPosts.map((post, i) =>
+            `<div class="recent-post-card">` +
+            `<div class="recent-post-date">${formatRecentDate(post.date)}</div>` +
+            `<div class="recent-post-text" data-idx="${i}">${escapeHtml(post[lang] || post.zh)}</div>` +
+            `</div>`
+        ).join('') +
+        '</div>';
+}
+
 // 多语言配置
 const translations = {
     zh: {},
@@ -44,6 +85,8 @@ const translations = {
         "nav-home": "Home",
         "nav-projects": "Projects",
         "nav-moments": "Musings",
+        "recent-title": "Recent Activity",
+        "recent-more": "View All →",
         "copyright": "© 2025 CUI Jiaxing’s Homepage. All rights reserved."
     },
     ja: {
@@ -78,6 +121,8 @@ const translations = {
         "nav-home": "ホーム",
         "nav-projects": "プロジェクト",
         "nav-moments": "つぶやき",
+        "recent-title": "最近の動き",
+        "recent-more": "すべて見る →",
         "copyright": "© 2025 CUI Jiaxing’s Homepage. All rights reserved."
     }
 };
@@ -174,6 +219,12 @@ function switchLanguage(lang) {
     });
 
     document.documentElement.lang = lang;
+
+    // 更新近期动态帖子内容
+    document.querySelectorAll('.recent-post-text[data-idx]').forEach(el => {
+        const post = recentPosts[+el.dataset.idx];
+        if (post) el.textContent = post[lang] || post.zh || '';
+    });
 }
 
 // 粒子连线背景
@@ -295,6 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 访问量计数（Firebase 可用时读真实值，否则显示占位数）
     initVisitorCounter();
+
+    // 近期动态
+    loadRecentPosts();
 
     // 粒子背景
     initParticles();
