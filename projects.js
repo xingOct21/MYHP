@@ -67,6 +67,30 @@ const projectsData = [
       desc: 'テキスト・音声・動画の三モーダル情報を融合し、欺瞞検出と尋問分析のためのマルチモーダル深層学習システムを構築。',
       tags: ['Python', '機械学習', 'マルチモーダル', 'NLP']
     }
+  },
+  {
+    num: '04',
+    link: 'https://xingoct21.github.io/TimelineForAI/',
+    linkLabel: { zh: '访问网站', en: 'Visit Site', ja: 'サイトへ' },
+    wip: true,
+    zh: {
+      title: 'TimelineForAI',
+      subtitle: 'AI · 机器学习 · 深度学习',
+      desc: '以时间轴形式梳理人工智能、机器学习与深度学习的发展历史，并规划 AI 学习路径，推荐具体的学习方法与配套资料。（持续更新中）',
+      tags: ['HTML', 'AI历史', '学习路径', '教育']
+    },
+    en: {
+      title: 'TimelineForAI',
+      subtitle: 'AI · Machine Learning · Deep Learning',
+      desc: 'A timeline-based web project tracing the history of AI, machine learning, and deep learning, with a structured learning roadmap and curated study resources. (Ongoing)',
+      tags: ['HTML', 'AI History', 'Learning Path', 'Education']
+    },
+    ja: {
+      title: 'TimelineForAI',
+      subtitle: 'AI · 機械学習 · 深層学習',
+      desc: 'AI・機械学習・深層学習の歴史を年表形式で整理し、学習ロードマップと具体的な学習方法・教材を提案するウェブプロジェクト。（継続更新中）',
+      tags: ['HTML', 'AI史', '学習パス', '教育']
+    }
   }
 ];
 
@@ -81,6 +105,7 @@ const i18n = {
     'nav-projects':  '我的项目',
     'nav-moments':   '碎碎念',
     'github-label':  'GitHub',
+    'wip-label':     '更新中',
     'copyright':     '@2025 CUI Jiaxing\'s Homepage. All rights reserved.'
   },
   en: {
@@ -90,6 +115,7 @@ const i18n = {
     'nav-projects':  'Projects',
     'nav-moments':   'Musings',
     'github-label':  'GitHub',
+    'wip-label':     'In Progress',
     'copyright':     '© 2025 CUI Jiaxing\'s Homepage. All rights reserved.'
   },
   ja: {
@@ -99,6 +125,7 @@ const i18n = {
     'nav-projects':  'プロジェクト',
     'nav-moments':   'つぶやき',
     'github-label':  'GitHub',
+    'wip-label':     '更新中',
     'copyright':     '© 2025 CUI Jiaxing\'s Homepage. All rights reserved.'
   }
 };
@@ -114,12 +141,15 @@ const GH_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCol
 function buildCardHTML(p, lang) {
   const d = p[lang] || p.zh;
   const tags = d.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+  const label = p.linkLabel ? p.linkLabel[lang] || p.linkLabel.zh : t('github-label');
+  const wipBadge = p.wip ? `<span class="card-wip">${t('wip-label')}</span>` : '';
   return `
     <div class="project-card">
       <div class="card-header">
         <span class="card-num">${p.num}</span>
+        ${wipBadge}
         <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="card-gh-btn">
-          ${GH_SVG}<span>${t('github-label')} ↗</span>
+          ${GH_SVG}<span>${label} ↗</span>
         </a>
       </div>
       <div class="card-title">${d.title}</div>
