@@ -92,6 +92,28 @@ const projectsData = [
       desc: 'AI・機械学習・深層学習の歴史を年表形式で整理し、学習ロードマップと具体的な学習方法・教材を提案するウェブプロジェクト。',
       tags: ['HTML', 'AI史', '学習パス', '教育']
     }
+  },
+  {
+    num: '05',
+    link: 'https://github.com/xingOct21/X-music',
+    zh: {
+      title: 'Xmusic',
+      subtitle: 'iOS 音乐提取与播放工具',
+      desc: '个人使用的 iOS 音乐工具：粘贴视频链接（主要支持 B 站），后端通过 yt-dlp 提取音频并下载到本机播放，配合本地歌曲库、歌单管理与锁屏 / 控制中心集成。',
+      tags: ['Swift', 'SwiftUI', 'FastAPI', '音频提取']
+    },
+    en: {
+      title: 'Xmusic',
+      subtitle: 'iOS Music Extraction & Player',
+      desc: 'A personal iOS music tool — paste a video link (mainly Bilibili) and the FastAPI + yt-dlp backend extracts the audio for local download and playback, with a local song library, playlist management, and lock-screen / Control Center integration.',
+      tags: ['Swift', 'SwiftUI', 'FastAPI', 'Audio Extraction']
+    },
+    ja: {
+      title: 'Xmusic',
+      subtitle: 'iOS 音楽抽出・再生アプリ',
+      desc: '個人用 iOS 音楽ツール。動画リンク（主に Bilibili）を貼ると、FastAPI + yt-dlp バックエンドが音声を抽出してローカルにダウンロード・再生。ローカル楽曲ライブラリ、プレイリスト管理、ロック画面 / コントロールセンター連携に対応。',
+      tags: ['Swift', 'SwiftUI', 'FastAPI', '音声抽出']
+    }
   }
 ];
 
